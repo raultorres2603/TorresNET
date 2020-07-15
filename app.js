@@ -1,6 +1,8 @@
-const express = require('express');
+var express = require('express');
+var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 const path = require('path');
-const server = express();
 const mysql = require('mysql');
 const pug = require('pug');
 var session = require('express-session');
@@ -10,17 +12,17 @@ const bodyParser = require('body-parser');
 const EventEmitter = require('events');
 const { resolveMx } = require('dns');
 const myEmitter = new EventEmitter();
-server.use(express.static('public'));
+app.use(express.static('public'));
 
-server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: true }));
-server.set('view engine', 'pug');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.set('view engine', 'pug');
 
 //SESSIONS SSH
-server.use(session({ secret: 'ssshhhhh' }));
+app.use(session({ secret: 'ssshhhhh' }));
 
 
-server.use(express.urlencoded({
+app.use(express.urlencoded({
     extended: true
 }))
 
@@ -33,10 +35,10 @@ const con = mysql.createConnection({
 
 // -----------------------------------------------------------------------------------------------
 
-server.get('/', function (req, res) {
+app.get('/', function (req, res) {
     // Si la sesion de login existe
     if (typeof sess !== 'undefined') {
-        res.render(path.join(__dirname, './views/index.pug'), {
+        res.render(path.join(__dirname, './public/views/index.pug'), {
             title: 'TorresNET',
             esconder: 'none',
             texto: 'Bienvenido ' + sess.username,
@@ -44,7 +46,7 @@ server.get('/', function (req, res) {
             log_view: 'block'
         });
     } else {
-        res.render(path.join(__dirname, './views/index.pug'), {
+        res.render(path.join(__dirname, './public/views/index.pug'), {
             title: 'TorresNET',
             buton_entrar: 'Entrar',
             esconder: 'block',
@@ -54,13 +56,13 @@ server.get('/', function (req, res) {
     }
 });
 
-server.get('/logout', function (req, res) {
+app.get('/logout', function (req, res) {
     sess = undefined;
     req.session.destroy();
     res.redirect('/');
 });
 
-server.post('/auth', function (req, res) {
+app.post('/auth', function (req, res) {
     const username = req.body.usuario;
     const password = req.body.contrasena;
 
@@ -74,11 +76,20 @@ server.post('/auth', function (req, res) {
             sess.username = username;
             res.redirect('/?error=false');
         } else {
-            res.redirect('/?error=true');
+            con.query('INSERT INTO usuario(name_usuario,pass_usuario) VALUES (?,?)', [username,password], function (error, results, fields) {
+                if (error) {
+                    throw error;
+                } else {
+            sess = req.session;
+            sess.username = username;
+            res.redirect('/?error=false');
+                }
+            });
         }
     });
 
 });
+
 
 server.listen(3000, function () {
     console.log("Server running on Node.js");
