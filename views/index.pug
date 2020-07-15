@@ -26,6 +26,9 @@ head
                         li.nav-item.active
                             a.nav-link(href='https://www.twitch.tv/torraco' target='_blank')
                                 img(src='./images/twitch_LOGO.png' title='¡Canal de Twitch!')
+                        li.nav-item.active
+                            a.nav-link(href='/'+logout style='display:'+log_view)
+                                img(src='./images/logout.png' title='Salir' style='display:'+log_view)
                     ul.navbar-nav.ml-md-auto
                         li.nav-item
                             a.nav-link(data-toggle='modal' data-target='#quienesSomos')

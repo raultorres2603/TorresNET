@@ -36,14 +36,27 @@ const con = mysql.createConnection({
 server.get('/', function (req, res) {
     // Si la sesion de login existe
     if (typeof sess !== 'undefined') {
-        res.render(path.join(__dirname, './views/index.pug'), { title: 'TorresNET', buton_entrar: 'Salir', esconder: 'none', texto: 'Bienvenido ' + sess.username, session: sess });
+        res.render(path.join(__dirname, './views/index.pug'), {
+            title: 'TorresNET',
+            esconder: 'none',
+            texto: 'Bienvenido ' + sess.username,
+            logout: 'logout',
+            log_view: 'block'
+        });
     } else {
-        res.render(path.join(__dirname, './views/index.pug'), { title: 'TorresNET', buton_entrar: 'Entrar', esconder: 'block', texto: 'Únete a nosotros' });
+        res.render(path.join(__dirname, './views/index.pug'), {
+            title: 'TorresNET',
+            buton_entrar: 'Entrar',
+            esconder: 'block',
+            texto: 'Únete a nosotros',
+            log_view: 'none'
+        });
     }
 });
 
-server.get('/unlog', function (req, res) {
-    sess = req.session = "undefined";
+server.get('/logout', function (req, res) {
+    sess = undefined;
+    req.session.destroy();
     res.redirect('/');
 });
 
