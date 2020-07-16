@@ -92,6 +92,12 @@ app.post('/auth', function (req, res) {
 
 });
 
+app.post('/question', function (req, res) {
+    const question = req.body.question;
+    // CREAR SALA DE ADMIN POR USUARIO... SOCKETS ROOMS Y DEMÁS!
+    res.redirect('/');
+});
+
 
 server.listen(3000, function () {
     console.log("Server running on Node.js");

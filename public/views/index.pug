@@ -102,3 +102,56 @@ head
                             input#inlineFormInputGroup.form-control(type='password' name='contrasena')
                     button#entrar.btn.btn-success(type='submit') Entrar
             .modal-footer
+
+#soporte.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
+    .modal-dialog(role='document')
+        .modal-content
+            #modalSoporteHeader.modal-header
+                h5#exampleModalLabel.modal-title Soporte
+                button.close(type='button' data-dismiss='modal' aria-label='Close')
+                    span(aria-hidden='true') &times;
+            .modal-body
+                u
+                    b ¿Como puedo ver nuevas noticias de un juego en concreto?
+                br
+                | Para poder ver nuevas noticias del juego que tu quieras, accede al apartado de 
+                b "Noticias" 
+                | en la barra de navegación.
+                hr
+                u
+                    b ¿Puedo publicar noticias propias?
+                br
+                | Para poder publicar noticias propias tienes que ser 
+                b partner.
+                br
+                | Para ello contacta con nosotros en el apartado de 
+                b "Conviertete en Partner" 
+                | en la barra de navegación.
+                hr
+                u
+                    b ¿Que ofrece ésta comunidad?
+                br
+                | Ofrecemos una amplia gama de noticias en relación a videojuegos y una comunidad de
+                b Twitch y Discord 
+                | sana donde puedes disfrutar de streamings y charlas en nuestro 
+                b servidor con canales automáticos.
+                br
+                | Únete dandole al botón de 
+                b Discord 
+                | en la barra de navegación.
+                hr
+                u
+                    b ¿Y si mi pregunta no está resuelta?
+                br
+                | Envianos tu pregunta por aquí y si hay algún administrador te responderemos lo antes posible.
+                br
+                br
+                form(method='POST' action='/question')
+                    .form-group
+                        .input-group.mb-2
+                            .input-group-prepend
+                                .input-group-text 📞
+                            input#inlineFormInputGroup.form-control(type='text' name='question')
+                    button#entrar.btn.btn-success(type='submit') Enviar
+
+            .modal-footer

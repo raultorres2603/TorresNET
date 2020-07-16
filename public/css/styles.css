@@ -38,3 +38,8 @@
       margin-top: 2%;
       margin-bottom: 1%;
   }
+
+  #modalSoporteHeader {
+    background-color: dodgerblue;
+    color: white;
+  }
