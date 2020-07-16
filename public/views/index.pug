@@ -30,12 +30,15 @@ head
                                 img(src='./images/twitch_LOGO.png' title='¡Canal de Twitch!')
                         li.nav-item.active
                             a.nav-link(href='/'+logout style='display:'+log_view)
-                                img(src='./images/logout.png' title='Salir' style='display:'+log_view)
+                                img(src='./images/logout.png' title='Salir')
                     ul.navbar-nav.ml-md-auto
                         li.nav-item
                             a.nav-link(data-toggle='modal' data-target='#quienesSomos')
                                 | &iquest;Quienes somos?
                                 span.sr-only
+                        li.nav-item.active
+                            a.nav-link(data-toggle='modal' data-target='#soporte' style="display:"+log_view)
+                                img(src='./images/soporte.png' title='Contacta con nosotros')
             video#myVideo(autoplay='' muted='' loop='')
                 source(src='./media/fondo.mp4' type='video/mp4')
             .content
