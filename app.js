@@ -38,7 +38,7 @@ const con = mysql.createConnection({
 app.get('/', function (req, res) {
     // Si la sesion de login existe
     if (typeof sess !== 'undefined') {
-        res.render(path.join(__dirname, './public/views/index.pug'), {
+        res.render(path.join(__dirname, './views/index.pug'), {
             title: 'TorresNET',
             esconder: 'none',
             texto: 'Bienvenido ' + sess.username,
@@ -46,7 +46,7 @@ app.get('/', function (req, res) {
             log_view: 'block'
         });
     } else {
-        res.render(path.join(__dirname, './public/views/index.pug'), {
+        res.render(path.join(__dirname, './views/index.pug'), {
             title: 'TorresNET',
             buton_entrar: 'Entrar',
             esconder: 'block',
