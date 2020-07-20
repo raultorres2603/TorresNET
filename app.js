@@ -74,7 +74,6 @@ app.post('/auth', function (req, res) {
         } else if (results.length > 0) {
             sess = req.session;
             sess.username = username;
-            io.emit('new-login-select');
             res.redirect('/');
         } else {
             con.query('INSERT INTO usuario(name_usuario,pass_usuario) VALUES (?,?)', [username,password], function (error, results, fields) {
@@ -83,7 +82,6 @@ app.post('/auth', function (req, res) {
                 } else {
             sess = req.session;
             sess.username = username;
-            io.emit('new-login-insert');
             res.redirect('/');
                 }
             });
