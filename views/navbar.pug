@@ -1,0 +1,135 @@
+nav.navbar.navbar-expand-lg.navbar-light.bg-light.navbar-dark.bg-dark
+    button.navbar-toggler(type='button' data-toggle='collapse' data-target='#bs-example-navbar-collapse-1')
+        span.navbar-toggler-icon
+    a.navbar-brand(href='#')
+        img.d-inline-block.align-top(src='./images/discord_LOGO_SERVER_P.png' width='30' height='30')
+        |                         #{title}
+    #bs-example-navbar-collapse-1.collapse.navbar-collapse
+        ul.navbar-nav
+            li.nav-item.active
+                a.nav-link(href='https://discord.gg/gAnkEp' target='_blank')
+                    img(src='./images/discord_LOGO.png' title='¡Únete a nuestro servidor de Discord!')
+            li.nav-item.active
+                a.nav-link(href='https://www.twitch.tv/torraco' target='_blank')
+                    img(src='./images/twitch_LOGO.png' title='¡Canal de Twitch!')
+            li.nav-item.active
+                a.nav-link(href='/'+logout style='display:'+log_view)
+                    img(src='./images/logout.png' title='Salir')
+        ul.navbar-nav.ml-md-auto
+            li.nav-item
+                a.nav-link(data-toggle='modal' data-target='#quienesSomos')
+                    | &iquest;Quienes somos?
+                    span.sr-only
+            li.nav-item.active
+                a.nav-link(data-toggle='modal' data-target='#soporte' style="display:"+log_view)
+                    img(src='./images/soporte.png' title='Contacta con nosotros')
+
+                    // MODALES
+#quienesSomos.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
+    .modal-dialog(role='document')
+        .modal-content
+            .modal-header
+                h5#exampleModalLabel.modal-title &iquest;Qu&eacute; es TorresNET?
+                button.close(type='button' data-dismiss='modal' aria-label='Close')
+                    span(aria-hidden='true') &times;
+            .modal-body
+                u
+                    b #{title}
+                br
+                |                     Somos una 
+                b comunidad de videojuegos, social y sana
+                |  que pretende 
+                b globalizar
+                |                     muchos &aacute;mbitos de relaciones en Internet.
+                hr
+                u
+                    b Discord
+                br
+                |                     Contamos con un 
+                b servidor autom&aacute;tico
+                |  donde puedes tener tu propia sala para jugar con tus
+                |                     amigos.
+                hr
+                u
+                    b Twitch
+                br
+                |                     Tenemos un 
+                b canal de Twitch
+                |  donde hacemos directos jugando con vosotros, nuestra comunidad.
+            .modal-footer
+#formularioEntrar.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
+    .modal-dialog(role='document')
+        .modal-content
+            #modalEntrarHeader.modal-header
+                h5#exampleModalLabel.modal-title Entrar
+                button.close(type='button' data-dismiss='modal' aria-label='Close')
+                    span(aria-hidden='true') &times;
+            .modal-body
+                form(method='POST' action='/auth')
+                    .form-group
+                        label(for='exampleFormControlInput1') Usuario
+                        .input-group.mb-2
+                            .input-group-prepend
+                                .input-group-text &#x1F60E;
+                            input#inlineFormInputGroup.form-control(type='text' name='usuario')
+                    .form-group
+                        label(for='exampleFormControlInput1') Contrase&ntilde;a
+                        .input-group.mb-2
+                            .input-group-prepend
+                                .input-group-text &#x1F511;
+                            input#inlineFormInputGroup.form-control(type='password' name='contrasena')
+                    button#entrar.btn.btn-success(type='submit') Entrar
+            .modal-footer
+
+#soporte.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
+    .modal-dialog(role='document')
+        .modal-content
+            #modalSoporteHeader.modal-header
+                h5#exampleModalLabel.modal-title Soporte
+                button.close(type='button' data-dismiss='modal' aria-label='Close')
+                    span(aria-hidden='true') &times;
+            .modal-body
+                u
+                    b ¿Como puedo ver nuevas noticias de un juego en concreto?
+                br
+                | Para poder ver nuevas noticias del juego que tu quieras, accede al apartado de 
+                b "Noticias" 
+                | en la barra de navegación.
+                hr
+                u
+                    b ¿Puedo publicar noticias propias?
+                br
+                | Para poder publicar noticias propias tienes que ser 
+                b partner.
+                br
+                | Para ello contacta con nosotros en el apartado de 
+                b "Conviertete en Partner" 
+                | en la barra de navegación.
+                hr
+                u
+                    b ¿Que ofrece ésta comunidad?
+                br
+                | Ofrecemos una amplia gama de noticias en relación a videojuegos y una comunidad de
+                b Twitch y Discord 
+                | sana donde puedes disfrutar de streamings y charlas en nuestro 
+                b servidor con canales automáticos.
+                br
+                | Únete dandole al botón de 
+                b Discord 
+                | en la barra de navegación.
+                hr
+                u
+                    b ¿Y si mi pregunta no está resuelta?
+                br
+                | Envianos tu pregunta por aquí y si hay algún administrador te responderemos lo antes posible.
+                br
+                br
+                form(method='POST' action='/question')
+                    .form-group
+                        .input-group.mb-2
+                            .input-group-prepend
+                                .input-group-text 📞
+                            input#inlineFormInputGroup.form-control(type='text' name='question')
+                    button#entrar.btn.btn-success(type='submit') Enviar
+
+            .modal-footer

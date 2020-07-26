@@ -66,34 +66,50 @@ app.post('/auth', function (req, res) {
     const username = req.body.usuario;
     const password = req.body.contrasena;
 
-    console.log(username, password);
-
-    con.query('SELECT idusuario FROM usuario WHERE name_usuario = ? AND pass_usuario = ?', [username, password], function (error, results, fields) {
-        if (error) {
-            throw error;
-        } else if (results.length > 0) {
-            sess = req.session;
-            sess.username = username;
-            res.redirect('/');
-        } else {
-            con.query('INSERT INTO usuario(name_usuario,pass_usuario) VALUES (?,?)', [username,password], function (error, results, fields) {
-                if (error) {
-                    throw error;
-                } else {
-            sess = req.session;
-            sess.username = username;
-            res.redirect('/');
-                }
-            });
-        }
-    });
+    if (username == "" || password == "") {
+        res.redirect('/');
+    } else {
+        con.query('SELECT idusuario FROM usuario WHERE name_usuario = ? AND pass_usuario = ?', [username, password], function (error, results, fields) {
+            if (error) {
+                res.redirect('/?error_select=1');
+            } else if (results.length > 0) {
+                sess = req.session;
+                sess.username = username;
+                res.redirect('/');
+            } else {
+                con.query('INSERT INTO usuario(name_usuario,pass_usuario) VALUES (?,?)', [username, password], function (error, results, fields) {
+                    if (error) {
+                        res.redirect('/?error_insert=1');
+                    } else {
+                        sess = req.session;
+                        sess.username = username;
+                        res.redirect('/');
+                    }
+                });
+            }
+        });
+    }
 
 });
 
 app.post('/question', function (req, res) {
     const question = req.body.question;
-    // CREAR SALA DE ADMIN POR USUARIO... SOCKETS ROOMS Y DEMÁS!
+
+    con.query('SELECT idusuario FROM usuario WHERE name_usuario = ?', [sess.username], function (error, results, fields) {
+        if (error) {
+            res.redirect('/');
+        } else {
+            con.query('INSERT INTO preguntas_usuarios(pregunta_usuarios,usuario_usuarios) VALUES (?,?)', [question,sess.username], function (error, results, fields) {
+                if (error) {
+                    res.redirect('/');
+                } else {
+                    res.redirect('/?error_preg=0');
+                }
+            });
+        }
+    });
     res.redirect('/');
+
 });
 
 
